@@ -1,0 +1,29 @@
+{
+  "name": "Lesslie - Less Compiler & Watcher",
+  "version": "0.1.0",
+  "manifest_version": 2,
+  "minimum_chrome_version": "23",
+  "description": "Less compiler & watcher.",
+  "app": {
+    "background": {
+      "scripts": [
+        "background.js"
+      ]
+    }
+  },
+  "permissions": [
+    {
+      "fileSystem": [
+        "write"
+      ]
+    },
+    "unlimitedStorage",
+    "contextMenus"
+  ],
+  "icons": {
+    "16": "images/logo-lesslie-16x16.png",
+    "32": "images/logo-lesslie-32x32.png",
+    "64": "images/logo-lesslie-64x64.png",
+    "128": "images/logo-lesslie-128x128.png"
+  }
+}

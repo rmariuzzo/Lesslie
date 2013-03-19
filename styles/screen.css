@@ -1,0 +1,56 @@
+
+/* Layout */
+
+body, html {
+    padding: 0;
+    margin: 0;
+    background-color: #fff;
+    height: 100%;
+}
+
+#title {
+    padding: 0 10px 10px 10px;
+    border-bottom: #ddd solid 1px;
+    height: 36px;
+}
+
+#content {
+    height: 233px;
+    padding: 10px;
+}
+
+#dropzone {
+    border: #eee dashed 5px;
+    border-radius: 5px;
+    height: 100%;
+    cursor: pointer;
+    box-sizing: border-box;
+    text-align: center;
+    color:#999;
+    display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+}
+
+.dropping #dropzone {
+    border-color: #2a5fa8;
+}
+
+/* Typography */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Roboto Condensed';
+    font-style: normal;
+    font-weight: 400;
+}
+
+body {
+    font-family: 'Roboto Condensed';
+    font-style: normal;
+    font-weight: 300;
+}
