@@ -72,9 +72,11 @@ App.controller('DropZoneCtrl', ['$scope', function ($scope) {
     $scope.drop = function(event) {
         event.stopPropagation();
         event.preventDefault();
+        for (var i = 0; i < event.dataTransfer.items.length; i++) {
+            Lesslie.watch(event.dataTransfer.items[i].webkitGetAsEntry());
+        };
         $scope.state = '';
         $scope.$apply();
-        Lesslie.watch(event.dataTransfer.files);
     };
 
 }]);
@@ -101,28 +103,68 @@ function readAsText(fileEntry, callback) {
 (function(window) {
   
     var Lesslie = function () {
+        // Properties.
         this.watching = [];
+        // Inner class.
+        this.FileEntry = function (fileEntry) {
+            this.fileEntry = fileEntry;
+            var $this = this;
+            this.fileEntry.getMetadata(function(metadata) {
+                $this.state = metadata.modificationTime + '_' + metadata.size;
+            }, function(err) {
+                console.error(err);
+            });
+        };
+        this.FileEntry.prototype.hasChanged = function(callback) {
+            var $this = this;
+            this.fileEntry.getMetadata(function(metadata) {
+                var currentState = metadata.modificationTime + '_' + metadata.size,
+                    changed = $this.state != currentState;
+                if (changed) {
+                    $this.state = currentState;
+                }
+                callback(changed, null);
+            }, function(err) {
+                callback(false, err);
+            });
+        };
     };
 
-    Lesslie.prototype.watch = function(entries) {
-
-        if (!entries) {
-            return;
-        } else if (entries.toString() == '[object FileList]') {
-            for (var i = 0; i < entries.length; i++) {
-                this.watching.push(entries[i]);
-            }
-        } else if (typeof entries === 'string') {
-            this.watching.push(entries);
+    /**
+     * Watch an entry
+     * 
+     * @param entry - A {FileEntry} object.
+     */
+    Lesslie.prototype.watch = function(entry) {
+        if (entry.isFile) {
+            watchFile.apply(this, [new this.FileEntry(entry)]);
         }
     };
 
     // Private functions //
 
-    function watchFile(file) {
-        
+    function watchFile(fileEntry) {
+        this.watching.push(fileEntry);
     }
 
+    function checkForModifications() {
+        if (this.watching.length > 0) {
+            this.watching[0].hasChanged(function(changed, err) {
+                if (changed) {
+                    console.log('File changed!');
+                }
+            });
+        }
+    }
+
+    // Expose class as global.
+
     window.Lesslie = new Lesslie();
+
+    // Initialize file watcher.
+
+    setInterval(function() {
+        checkForModifications.apply(window.Lesslie, []);
+    }, 500);
 
 })(window);
