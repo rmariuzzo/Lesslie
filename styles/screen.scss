@@ -1,0 +1,75 @@
+
+// Variables //
+
+$unit: 10px;
+
+/* Layout */
+
+body, html {
+    padding: 0;
+    margin: 0;
+    background-color: #fff;
+    height: 100%;
+}
+
+#title {
+    padding: $unit;
+    border-bottom: #ddd solid 1px;
+    height: 36px;
+}
+
+#content {
+    position: absolute;
+    top: 57px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: auto;
+}
+
+/* Screens */
+
+.screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: auto;
+    display: none;
+}
+
+#dropzone {
+    margin: $unit;
+    border: #eee dashed 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    box-sizing: border-box;
+    text-align: center;
+    color:#999;
+    display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+    &.enter {
+        border-color: #2a5fa8;
+    }
+}
+
+/* Typography */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Roboto Condensed';
+    font-style: normal;
+    font-weight: 400;
+}
+
+body {
+    font-family: 'Roboto Condensed';
+    font-style: normal;
+    font-weight: 300;
+}
